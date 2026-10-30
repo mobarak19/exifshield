@@ -1,0 +1,36 @@
+---
+// The interactive tool. The empty state (dropzone) is server-rendered so the
+// page is useful and fast before JavaScript loads.
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+interface Props { mode: string; title: string; text: string }
+const { mode, title, text } = Astro.props;
+const multi = mode !== 'privacy';
+const batchSamples = mode === 'batch' || mode === 'csv';
+---
+<section class="workspace container" data-workspace data-mode={mode} data-max={SITE.maxBatchFiles} aria-label="Photo metadata tool" id="tool">
+  <div data-view="empty">
+    <div class="dropzone" tabindex="0" role="button" aria-describedby="dz-help">
+      <div>
+        <div class="dz-icon"><Icon name="upload" size={30} /></div>
+        <h2>{title}</h2>
+        <p id="dz-help">{text}</p>
+        <div class="dz-actions">
+          <button type="button" class="btn btn-primary btn-lg" data-action="browse"><Icon name="images" size={20} /> Choose {multi ? 'photos' : 'a photo'}</button>
+          <button type="button" class="btn btn-lg" data-action="sample"><Icon name="sparkles" size={20} /> Try {batchSamples ? 'sample photos' : 'a sample photo'}</button>
+        </div>
+        <div class="dz-local"><Icon name="lock" size={15} /> Processed on your device. Nothing is uploaded.</div>
+      </div>
+    </div>
+  </div>
+  <div data-view="app" hidden></div>
+  <input type="file" accept="image/*,.heic,.heif,.avif,.webp,.tif,.tiff,.dng" multiple hidden />
+  <div class="drop-overlay" aria-hidden="true"><div>Drop photos anywhere</div></div>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="muted" style="text-align:center;margin-top:12px">This tool needs JavaScript to read photos on your device.</p></noscript>
+</section>
+
+<script>
+  import { mountWorkspace } from '../app/workspace';
+  document.querySelectorAll<HTMLElement>('[data-workspace]').forEach(mountWorkspace);
+</script>

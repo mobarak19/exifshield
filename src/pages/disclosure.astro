@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+import { u } from '../lib/url';
+---
+<Base title={`Affiliate Disclosure | ${SITE.name}`} description={`How ${SITE.name} is funded: affiliate links, our own apps, and what that means for you.`}>
+  <div class="container" style="padding-top:32px">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / <span aria-current="page">Affiliate disclosure</span></nav>
+    <article class="prose">
+      <h1>Affiliate disclosure</h1>
+      <p class="muted small">Last updated 6 October 2026</p>
+      <p>{SITE.name} is free, with no account and no upload. To keep it that way, some pages include <strong>affiliate links</strong>. If you click one and buy something, we may earn a commission <strong>at no extra cost to you</strong>.</p>
+      <h2>Our rules</h2>
+      <ul>
+        <li>Affiliate links are always labelled <em>“Affiliate”</em> and marked with <code>rel="sponsored"</code>.</li>
+        <li>We only recommend products we think are genuinely useful for the task on the page.</li>
+        <li>Recommendations never affect how the tools work or what they report about your photos.</li>
+        <li>Affiliate links are plain links. There are <strong>no tracking scripts</strong> on this site, and nothing about your photos is ever shared. The partner only learns that someone arrived from {SITE.name} (and which page, for our reporting).</li>
+        <li>Links marked <em>“iPhone app”</em> or <em>“From the same developer”</em> point to our own apps.</li>
+      </ul>
+      <h2>Amazon</h2>
+      <p>As an Amazon Associate, we earn from qualifying purchases.</p>
+      <h2>Questions</h2>
+      <p>See the <a href={u('/about/')}>About page</a> to get in touch, or read <a href={u('/privacy/')}>how we protect your privacy</a>.</p>
+    </article>
+  </div>
+</Base>

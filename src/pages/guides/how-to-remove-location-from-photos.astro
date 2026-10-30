@@ -1,0 +1,52 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { u } from '../../lib/url';
+---
+<Guide
+  title="How to Remove Location From Photos (iPhone, Android, Windows, Mac)"
+  description="Step-by-step: remove GPS location from photos on iPhone, Android, Windows and Mac, stop your camera from saving location, and check that it worked."
+  h1="How to remove location from photos"
+  updated="2026-10-06"
+  tools={['remove-gps-from-photo', 'photo-location-finder', 'photo-privacy-checker']}
+  offers="guideLocation"
+>
+  <p>Photos taken with location services on contain <strong>GPS coordinates</strong> of where you were standing. Here’s how to remove them on any device, and how to stop new photos from recording it.</p>
+  <div class="callout"><p><strong>Fastest way on any device:</strong> open the <a href={u('/remove-gps-from-photo/')}>Remove Location tool</a>, drop your photos and download clean copies. It works in the browser, without uploading, and keeps full quality.</p></div>
+
+  <h2>1. Check whether your photo has a location</h2>
+  <p>Drop it into the <a href={u('/photo-location-finder/')}>Photo Location Finder</a>. If it shows coordinates, the location is embedded in the file.</p>
+
+  <h2>2. Remove location on iPhone</h2>
+  <h3>When sharing (per photo)</h3>
+  <ol>
+    <li>Select the photo(s) in Photos and tap <strong>Share</strong>.</li>
+    <li>Tap <strong>Options</strong> at the top of the share sheet.</li>
+    <li>Turn off <strong>Location</strong>, tap Done, and share.</li>
+  </ol>
+  <h3>Stop saving location for new photos</h3>
+  <p>Settings → Privacy &amp; Security → Location Services → <strong>Camera</strong> → <strong>Never</strong>.</p>
+  <p>You can also open a photo, swipe up, and use <strong>Adjust</strong> next to the map to remove its location in your library.</p>
+
+  <h2>3. Remove location on Android</h2>
+  <ol>
+    <li>Open the <strong>Camera</strong> app → Settings.</li>
+    <li>Turn off <strong>Location tags</strong> / <strong>Save location</strong> (the name varies by phone maker).</li>
+    <li>For existing photos, use a metadata remover such as <a href={u('/remove-gps-from-photo/')}>ours</a>, which works in Chrome on Android.</li>
+  </ol>
+
+  <h2>4. Remove location on Windows</h2>
+  <ol>
+    <li>Right-click the photo → <strong>Properties</strong> → <strong>Details</strong>.</li>
+    <li>Click <strong>Remove Properties and Personal Information</strong>.</li>
+    <li>Choose “Create a copy with all possible properties removed”, or select the GPS fields to remove.</li>
+  </ol>
+
+  <h2>5. Remove location on Mac</h2>
+  <p>In the Photos app, select the photo → Image → Location → <strong>Hide Location</strong>, or when exporting, uncheck <strong>Location information</strong>. In Preview: Tools → Show Inspector → ⓘ → GPS → <strong>Remove Location Info</strong>.</p>
+
+  <h2>6. Verify it worked</h2>
+  <p>Drop the cleaned photo into the <a href={u('/photo-location-finder/')}>location finder</a> again. It should say “No GPS location in this photo”. Also check the <a href={u('/photo-privacy-checker/')}>privacy checker</a>, because place names (city, country) can be stored separately from GPS in IPTC/XMP data.</p>
+
+  <h2>Does Instagram, Facebook or WhatsApp remove location?</h2>
+  <p>Large social networks generally remove EXIF (including GPS) from the photo other people see, though the platform itself receives the original. Messaging apps vary. Sending a photo as a <strong>document/file</strong> usually keeps all metadata. When in doubt, clean the photo before sending.</p>
+</Guide>

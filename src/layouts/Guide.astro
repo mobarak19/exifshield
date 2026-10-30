@@ -1,0 +1,42 @@
+---
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import ToolGrid from '../components/ToolGrid.astro';
+import { SITE } from '../data/site';
+import { TOOLS } from '../data/tools';
+import { offersHtml } from '../lib/offers';
+import type { PlacementId } from '../data/monetization';
+
+interface Props { title: string; description: string; h1: string; updated: string; tools: string[]; offers?: PlacementId }
+const { title, description, h1, updated, tools, offers } = Astro.props;
+const related = tools.map((s) => TOOLS.find((t) => t.slug === s)!).filter(Boolean);
+const site = Astro.site ?? new URL(SITE.url);
+const jsonLd = [{
+  '@context': 'https://schema.org', '@type': 'Article', headline: h1, description,
+  dateModified: updated, author: { '@type': 'Person', name: SITE.author },
+  mainEntityOfPage: new URL(Astro.url.pathname, site).href,
+}];
+import { u } from '../lib/url';
+---
+<Base title={title} description={description} jsonLd={jsonLd} ogType="article">
+  <div class="container" style="padding-top:32px">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / <a href={u('/guides/')}>Guides</a> / <span aria-current="page">{h1}</span></nav>
+    <div class="two-col">
+      <article class="prose">
+        <h1>{h1}</h1>
+        <p class="muted small">Updated {new Date(updated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} · By {SITE.author}</p>
+        <slot />
+        {offers && <Fragment set:html={offersHtml(offers, { title: 'Tools we recommend' })} />}
+      </article>
+      <aside class="aside-card">
+        <h3 style="display:flex;gap:8px;align-items:center"><Icon name="shieldCheck" size={20} /> Check your photo</h3>
+        <p class="small" style="color:var(--text-2)">See what your photo reveals in seconds, privately in your browser.</p>
+        <a class="btn btn-primary btn-block" href={u('/photo-privacy-checker/')}>Open privacy checker</a>
+      </aside>
+    </div>
+  </div>
+  <section class="section container">
+    <div class="section-head"><h2>Tools for this</h2></div>
+    <ToolGrid tools={related} />
+  </section>
+</Base>

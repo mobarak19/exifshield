@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+const guides = [
+  { href: '/guides/what-is-exif-data/', title: 'What is EXIF data? A plain-English guide', text: 'What’s stored inside your photos, who can see it, and when it matters.', icon: 'book' },
+  { href: '/guides/how-to-remove-location-from-photos/', title: 'How to remove location from photos (iPhone, Android, PC)', text: 'Step-by-step ways to stop sharing where your photos were taken.', icon: 'pinOff' },
+];
+import { u } from '../../lib/url';
+---
+<Base title="Photo Metadata Guides" description="Plain-English guides about photo metadata, EXIF data, GPS location and photo privacy.">
+  <section class="hero container" style="text-align:left">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={u('/')}>Home</a> / <span aria-current="page">Guides</span></nav>
+    <h1 style="margin-left:0">Guides</h1>
+    <p class="lead" style="margin-left:0">Understand what your photos reveal, and how to control it.</p>
+  </section>
+  <div class="container"><div class="tool-grid">
+    {guides.map((g) => (
+      <a class="tool-card" href={u(g.href)}><span class="ti"><Icon name={g.icon} size={22} /></span><span><strong>{g.title}</strong><span>{g.text}</span></span></a>
+    ))}
+  </div></div>
+</Base>

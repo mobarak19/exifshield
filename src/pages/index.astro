@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Workspace from '../components/Workspace.astro';
+import Faq from '../components/Faq.astro';
+import ToolGrid from '../components/ToolGrid.astro';
+import { SITE } from '../data/site';
+import { CLUSTERS, TOOLS } from '../data/tools';
+
+const title = `${SITE.name}: Photo Metadata & EXIF Toolkit (View, Clean & Protect)`;
+const description = 'View, analyze and remove photo metadata in your browser. EXIF viewer, GPS location finder, privacy checker and lossless EXIF remover. Your photos never leave your device.';
+const faq: [string, string][] = [
+  ['Is it really free and private?', 'Yes. All tools run in your browser with JavaScript. Photos are never uploaded, there’s no account, and once the page has loaded the tools also work offline.'],
+  ['Which file types are supported?', 'JPG/JPEG, PNG, WebP, HEIC/HEIF (iPhone), AVIF, TIFF and DNG for viewing. JPG, PNG and WebP are cleaned losslessly; other formats are converted to JPEG when cleaned.'],
+  ['What is photo metadata?', `Hidden information stored inside an image file: camera and lens, settings, date and time, GPS location, software, author and more. Read <a href="${u('/guides/what-is-exif-data/')}">our guide to EXIF data</a>.`],
+  ['Can it process many photos at once?', 'Yes. Drop up to 100 photos to compare them in a table, export the metadata to CSV/JSON or clean them all into a ZIP.'],
+];
+import { u } from '../lib/url';
+---
+<Base title={title} description={description} jsonLd={[{
+  '@context': 'https://schema.org', '@type': 'WebApplication', name: SITE.name, url: SITE.url,
+  applicationCategory: 'MultimediaApplication', operatingSystem: 'Any (web browser)', isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, description,
+}]}>
+  <section class="hero container">
+    <span class="eyebrow"><Icon name="lock" size={15} /> 100% in your browser. Photos never leave your device</span>
+    <h1>See what your photos reveal, then clean them</h1>
+    <p class="lead">View EXIF data, find GPS locations, check privacy risks and remove metadata from your photos, privately and without losing quality.</p>
+    <div class="trust-row">
+      <span><Icon name="search" size={16} /> Inspect</span>
+      <span><Icon name="shieldCheck" size={16} /> Clean</span>
+      <span><Icon name="table" size={16} /> Analyze</span>
+    </div>
+  </section>
+
+  <Workspace mode="viewer" title="Drop photos to see their metadata" text="or choose files. JPG, HEIC, PNG, WebP, TIFF, AVIF. One photo or up to 100." />
+
+  <section class="section container" aria-labelledby="pillars">
+    <div class="section-head"><h2 id="pillars">Everything you need for photo metadata</h2><p>Three steps, one private toolkit: understand what’s in a photo, remove what you don’t want to share, and analyze whole shoots.</p></div>
+    <div class="pillars">
+      {CLUSTERS.map((c) => (
+        <div class="pillar">
+          <div class="ti"><Icon name={c.icon} size={22} /></div>
+          <h3>{c.title}</h3>
+          <p style="color:var(--text-2);margin:0">{c.text}</p>
+          <ul>{TOOLS.filter((t) => t.cluster === c.id).map((t) => <li><a href={u(`/${t.slug}/`)}>{t.name}</a></li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="reveal">
+    <div class="two-col">
+      <div class="prose">
+        <h2 id="reveal">A single photo can reveal a lot</h2>
+        <p>Every photo from a phone or camera carries hidden data. A typical photo taken at home might contain:</p>
+        <table>
+          <thead><tr><th>Hidden data</th><th>Example</th><th>What it reveals</th></tr></thead>
+          <tbody>
+            <tr><td>GPS location</td><td class="mono">23.81033, 90.41252</td><td>Where you live, work or travel</td></tr>
+            <tr><td>Date &amp; time</td><td>2 Mar 2026, 09:15:44 (+06:00)</td><td>Your routines and time zone</td></tr>
+            <tr><td>Device</td><td>iPhone 15 Pro, iOS 17.5.1</td><td>What you own and use</td></tr>
+            <tr><td>Serial number</td><td class="mono">083021004512</td><td>Links all photos from your camera</td></tr>
+            <tr><td>Owner name</td><td>Jane Doe</td><td>Who took the photo</td></tr>
+            <tr><td>Hidden thumbnail</td><td>160 × 120 preview</td><td>The original before cropping</td></tr>
+          </tbody>
+        </table>
+        <p><a href={u('/photo-privacy-checker/')}>Check your own photo’s privacy score →</a></p>
+      </div>
+      <div class="privacy-banner" style="grid-template-columns:1fr">
+        <div class="ti"><Icon name="shieldCheck" size={26} /></div>
+        <div>
+          <h3 style="margin:0">Private by design</h3>
+          <p>Most online EXIF tools upload your photo to their server. {SITE.name} reads and cleans photos <strong>entirely on your device</strong>. There's no server to upload to.</p>
+          <ul class="small" style="color:var(--text-2);padding-left:18px;margin:12px 0 0">
+            <li>No uploads, no accounts</li>
+            <li>Works offline after first load</li>
+            <li>Lossless cleaning for JPG, PNG and WebP</li>
+            <li>Map is opt-in, never loaded automatically</li>
+          </ul>
+          <p class="small" style="margin-top:12px"><a href={u('/privacy/')}>Read how it works →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="all-tools">
+    <div class="section-head"><h2 id="all-tools">All tools</h2></div>
+    <ToolGrid tools={TOOLS} />
+  </section>
+
+  <Faq items={faq} />
+</Base>

@@ -1,0 +1,63 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { u } from '../../lib/url';
+---
+<Guide
+  title="What Is EXIF Data? What Your Photos Reveal (Plain-English Guide)"
+  description="EXIF data explained: what information is stored in your photos (camera, settings, date, GPS), who can see it, and how to view or remove it."
+  h1="What is EXIF data?"
+  updated="2026-10-06"
+  tools={['exif-viewer', 'photo-privacy-checker', 'remove-exif']}
+  offers="guideExif"
+>
+  <p><strong>EXIF data is information your camera or phone saves inside every photo</strong>: the device, the settings, the date and time and often the exact GPS location. You can’t see it when you look at the picture, but anyone with the original file can read it in seconds.</p>
+  <div class="callout"><p><strong>Quick check:</strong> drop any photo into the <a href={u('/exif-viewer/')}>EXIF viewer</a> to see its metadata. It runs in your browser and nothing is uploaded.</p></div>
+
+  <h2>What’s stored in a photo</h2>
+  <table>
+    <thead><tr><th>Type</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td>Device</td><td>Make and model (e.g. “Apple iPhone 15 Pro”, “Canon EOS R6”), lens, sometimes serial number</td></tr>
+      <tr><td>Exposure settings</td><td>Shutter speed, aperture (f-number), ISO, focal length, flash, white balance, metering</td></tr>
+      <tr><td>Date &amp; time</td><td>When the photo was taken, digitised and last modified, often with time zone</td></tr>
+      <tr><td>Location</td><td>GPS latitude/longitude, altitude, direction the camera faced, GPS time</td></tr>
+      <tr><td>Image</td><td>Dimensions, orientation, color space, resolution (DPI)</td></tr>
+      <tr><td>Software</td><td>Editing app, OS version</td></tr>
+      <tr><td>Author</td><td>Artist, copyright, camera owner name</td></tr>
+      <tr><td>Thumbnail</td><td>A small embedded preview image</td></tr>
+    </tbody>
+  </table>
+
+  <h2>EXIF, IPTC, XMP and ICC: what’s the difference?</h2>
+  <ul>
+    <li><strong>EXIF</strong> is written automatically by cameras and phones: technical data, date and GPS.</li>
+    <li><strong>IPTC</strong> is used by photographers and news agencies for captions, credits, keywords and location names.</li>
+    <li><strong>XMP</strong> is Adobe’s flexible format, used by Lightroom, Photoshop and many editors. It can include edit history and copies of EXIF/IPTC data.</li>
+    <li><strong>ICC profile</strong> describes the image’s colors (e.g. sRGB or Display P3). It contains no personal information.</li>
+  </ul>
+  <p>Newer photos may also carry <strong>Content Credentials (C2PA)</strong>, a signed record of how an image was created and edited, including whether AI tools were used.</p>
+
+  <h2>Is EXIF data a privacy risk?</h2>
+  <p>It can be. The biggest risk is <strong>GPS location</strong>: photos taken at home point to your house within a few metres. Serial numbers can link photos you posted under different names, and timestamps can reveal routines.</p>
+  <p>Most big social networks strip EXIF from the photos other people see. Many other channels keep it, though: email, cloud links, marketplaces, forums, your own website and messaging apps when you send a photo as a file.</p>
+
+  <h2>Why EXIF is useful</h2>
+  <ul>
+    <li>Photographers learn from settings and organise photos by camera, lens and date.</li>
+    <li>Photo apps use dates and locations to build timelines and maps.</li>
+    <li>Journalists and researchers use metadata as one clue when verifying images.</li>
+    <li>Orientation and color profile tags make photos display correctly.</li>
+  </ul>
+
+  <h2>How to view EXIF data</h2>
+  <ul>
+    <li><strong>Online</strong>: use our <a href={u('/exif-viewer/')}>EXIF viewer</a>, which works on any device without uploading.</li>
+    <li><strong>iPhone</strong>: open a photo in Photos and swipe up (or tap ⓘ) to see the camera, settings and map.</li>
+    <li><strong>Android</strong>: in Google Photos, open a photo and swipe up for details.</li>
+    <li><strong>Windows</strong>: right-click the file → Properties → Details.</li>
+    <li><strong>Mac</strong>: open in Preview → Tools → Show Inspector → ⓘ tab.</li>
+  </ul>
+
+  <h2>How to remove EXIF data</h2>
+  <p>Use the <a href={u('/remove-exif/')}>Remove EXIF tool</a> to strip everything, or <a href={u('/remove-gps-from-photo/')}>remove only the location</a>. For JPG, PNG and WebP it’s lossless, so your image quality doesn’t change. See also: <a href={u('/guides/how-to-remove-location-from-photos/')}>how to remove location on iPhone, Android and PC</a>.</p>
+</Guide>

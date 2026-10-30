@@ -1,0 +1,15 @@
+---
+import Icon from './Icon.astro';
+import type { Tool } from '../data/tools';
+interface Props { tools: Tool[] }
+const { tools } = Astro.props;
+import { u } from '../lib/url';
+---
+<div class="tool-grid">
+  {tools.map((t) => (
+    <a class="tool-card" href={u(`/${t.slug}/`)}>
+      <span class="ti"><Icon name={t.icon} size={22} /></span>
+      <span><strong>{t.name}</strong><span>{t.card}</span></span>
+    </a>
+  ))}
+</div>

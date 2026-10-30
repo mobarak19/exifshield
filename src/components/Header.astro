@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+import { TOOLS } from '../data/tools';
+const path = Astro.url.pathname;
+import { u } from '../lib/url';
+---
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href={u('/')} aria-label={`${SITE.name} home`}>
+      <span class="logo-mark"><Icon name="shieldCheck" size={20} /></span>
+      {SITE.name}
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details class="nav-tools" data-nav-tools>
+        <summary class="nav-keep">Tools <Icon name="chevronDown" size={16} /></summary>
+        <div class="nav-menu">
+          {TOOLS.map((t) => (
+            <a href={u(`/${t.slug}/`)} aria-current={path.startsWith(u(`/${t.slug}/`)) ? 'page' : undefined}>
+              <Icon name={t.icon} size={20} />
+              <span><strong>{t.name}</strong><span>{t.card}</span></span>
+            </a>
+          ))}
+        </div>
+      </details>
+      <a href={u('/guides/')} aria-current={path.startsWith(u('/guides/')) ? 'page' : undefined}>Guides</a>
+      <a href={u('/privacy/')} aria-current={path.startsWith(u('/privacy/')) ? 'page' : undefined}>Privacy</a>
+      <span class="badge-local" title="Your photos are processed on your device and never uploaded"><Icon name="lock" size={14} /> No upload</span>
+    </nav>
+  </div>
+</header>
