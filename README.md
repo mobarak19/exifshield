@@ -26,14 +26,12 @@ npm run build     # static site in dist/
 npm run preview   # serve the production build
 ```
 
-## Deploy to Cloudflare Pages
+## Deploy (Cloudflare Workers)
 
-Cloudflare Pages builds and deploys on every push to `main` (Workers & Pages → Create → Pages → Import an existing Git repository):
+Cloudflare builds and deploys on every push to `main` (Workers Builds: build command `npm run build`, static assets from `dist`). Node 24 comes from `.node-version`. `public/_headers` (CSP and security headers) is applied automatically.
 
-- Framework preset: Astro · Build command: `npm run build` · Output directory: `dist`
-- Environment variables: `NODE_VERSION=24`, `SITE_URL=https://<project>.pages.dev` (or your custom domain), used for canonical links and the sitemap.
-
-`public/_headers` (CSP and security headers) is applied by Cloudflare automatically.
+- Live URL: `SITE.url` in `src/data/site.ts`, used for canonical links and the sitemap. Change it when you add a custom domain.
+- Visit statistics: create a site under Cloudflare dashboard → Web Analytics, and paste its token into `SITE.analyticsToken`.
 
 **Always use `u('/path/')` (from `src/lib/url.ts`) for internal links**, never a bare `"/path/"`, so the site also works under a sub-path. Submit the sitemap (`/sitemap-index.xml`) in Search Console.
 
