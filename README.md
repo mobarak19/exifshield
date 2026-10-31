@@ -63,7 +63,7 @@ Everything is configured in **one file: `src/data/monetization.ts`**.
 - Values containing `REPLACE` show as **dashed placeholders in `npm run dev`** and are **hidden in production builds**, so you can deploy any time without broken links.
 - Use `{placement}` in affiliate URLs (e.g. `?subid={placement}`) to see which placement earns in each affiliate dashboard.
 - Affiliate links get `rel="sponsored"`, an "Affiliate" label and a disclosure line. The full policy is at `/disclosure/`. It includes the Amazon Associates statement; remove it if you don't use Amazon.
-- No third-party scripts are added, so the CSP and the "photos never leave your device" promise stay intact. **Never add ad scripts to tool pages.**
+- The only third-party script is the cookie-free Cloudflare Web Analytics beacon (allowed in the CSP, described on `/privacy/`). It never sees photos, so the "photos never leave your device" promise stays intact. **Never add ad scripts to tool pages.**
 - Payments for a future Pro tier: Stripe doesn't support Bangladesh, so use Lemon Squeezy, Paddle or Gumroad (merchant of record, Payoneer payouts).
 
 ## How it works
