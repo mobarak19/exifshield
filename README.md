@@ -26,33 +26,16 @@ npm run build     # static site in dist/
 npm run preview   # serve the production build
 ```
 
-## Deploy to GitHub Pages (free)
+## Deploy to Cloudflare Pages
 
-The repo includes `.github/workflows/deploy.yml`, which builds and deploys on every push to `main`.
+Cloudflare Pages builds and deploys on every push to `main` (Workers & Pages → Create → Pages → Import an existing Git repository):
 
-1. Create a new GitHub repository (e.g. `exif-toolkit`) and push **this `website/` folder as the repo root**:
-   ```bash
-   cd website
-   git init -b main
-   git add .
-   git commit -m "Initial site"
-   git remote add origin https://github.com/<you>/exif-toolkit.git
-   git push -u origin main
-   ```
-2. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. The workflow runs automatically. Your site will be at `https://<you>.github.io/exif-toolkit/`.
+- Framework preset: Astro · Build command: `npm run build` · Output directory: `dist`
+- Environment variables: `NODE_VERSION=24`, `SITE_URL=https://<project>.pages.dev` (or your custom domain), used for canonical links and the sitemap.
 
-The base path and site URL are detected automatically (`actions/configure-pages` → `BASE_PATH` / `SITE_URL`), so the same code works for:
-- a project site: `https://<you>.github.io/exif-toolkit/`
-- a user site (repo named `<you>.github.io`): `https://<you>.github.io/`
-- a custom domain: add it under Settings → Pages → Custom domain; links switch to the root automatically on the next deploy.
+`public/_headers` (CSP and security headers) is applied by Cloudflare automatically.
 
-**Always use `u('/path/')` (from `src/lib/url.ts`) for internal links**, never a bare `"/path/"`, or links break on project sites.
-
-Notes for GitHub Pages:
-- GitHub Pages can't set HTTP headers, so the Content-Security-Policy is shipped as a `<meta>` tag (production builds only). `public/_headers` is used only if you move to Cloudflare Pages / Netlify.
-- `robots.txt` is only honoured at a domain root. Submit the sitemap in Search Console instead (`/sitemap-index.xml` under your site URL).
-- GitHub's terms say Pages isn't meant to run an online business. If you add ads or affiliate links later, consider moving to Cloudflare Pages (also free, same build). Only the hosting changes; the code stays the same.
+**Always use `u('/path/')` (from `src/lib/url.ts`) for internal links**, never a bare `"/path/"`, so the site also works under a sub-path. Submit the sitemap (`/sitemap-index.xml`) in Search Console.
 
 Local test of a sub-path build:
 ```bash
@@ -82,7 +65,6 @@ Everything is configured in **one file: `src/data/monetization.ts`**.
 - Affiliate links get `rel="sponsored"`, an "Affiliate" label and a disclosure line. The full policy is at `/disclosure/`. It includes the Amazon Associates statement; remove it if you don't use Amazon.
 - No third-party scripts are added, so the CSP and the "photos never leave your device" promise stay intact. **Never add ad scripts to tool pages.**
 - Payments for a future Pro tier: Stripe doesn't support Bangladesh, so use Lemon Squeezy, Paddle or Gumroad (merchant of record, Payoneer payouts).
-- Move hosting to Cloudflare Pages before earning meaningful revenue (GitHub Pages terms).
 
 ## How it works
 
